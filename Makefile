@@ -22,16 +22,8 @@ down:
 	docker compose down
 	make start_services
 
-purge:
-	docker rmi -f $(CONTAINER_APP)
-	sudo chmod -R +rwx postgresql
-	sudo rm -rf postgresql
-
 ex:
 	docker exec -it $(CONTAINER_APP) /bin/sh
-
-analyse:
-	cd ead_app/src && composer analyse 2>&1 | tee storage/logs/analyse.log
 
 start_services:
 	sudo service postgresql start || true
