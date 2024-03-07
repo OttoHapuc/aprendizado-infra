@@ -5,10 +5,13 @@ build:
 	sudo chmod 777 -R postgresql || true
 	docker compose build
 	docker compose up -d
-	docker compose exec $(CONTAINER_APP) if [ ! -f ".env" ]; then cp .env.example .env; fi
+	docker compose exec $(CONTAINER_APP) sh -c 'if [ ! -f ".env" ]; then cp .env.example .env; fi'
 	docker compose exec $(CONTAINER_APP) composer install
 	docker compose exec $(CONTAINER_APP) php artisan key:generate
-	docker compose exec $(CONTAINER_APP) chmod 777 .env storage
+	docker compose exec $(CONTAINER_APP) chmod 777 .env storage ./script.sh
+	docker compose exec $(CONTAINER_APP) ./script.sh 
+	docker compose exec $(CONTAINER_APP) php artisan migrate
+	docker compose exec $(CONTAINER_APP) php artisan passport:install
 	make stop
 
 up:

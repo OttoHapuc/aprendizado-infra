@@ -18,7 +18,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     libonig-dev \
     libzip-dev \
-    libgd-dev
+    libgd-dev 
+
+RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
