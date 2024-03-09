@@ -65,3 +65,16 @@ services:
         environment:
             - DB_FIREBIRD_HOST=firebird
             - DB_FIREBIRD_PASSWORD=masterkey
+
+    npm_app:
+        build:
+            context: ./ead_app/src/
+            dockerfile: npmDockerfile
+        restart: unless-stopped
+        tty: true
+        volumes:
+            - ./ead_app/src:/app
+        networks: 
+            - sisten-network
+        ports:
+            - 7500:7500
