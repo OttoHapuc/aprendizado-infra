@@ -3,6 +3,7 @@ include .env
 build:
 	make stop_services
 	sudo chmod 777 -R postgresql || true
+	sudo ./ead_app/src/npm.sh
 	docker compose build
 	docker compose up -d
 	docker compose exec $(CONTAINER_APP) sh -c 'if [ ! -f ".env" ]; then cp .env.example .env; fi'
