@@ -37,16 +37,16 @@ services:
         networks:
             - sisten-network
 
-    firebird:
-        image: jacobalberty/firebird:2.5-ss
-        environment:
-            - ISC_PASSWORD="${FB_PASSWORD}"
-        volumes:
-            - ./data/fb:/data
-        ports:
-            - "${FB_PORT}:3050"
-        networks:
-            - sisten-network
+    # firebird:
+    #     image: jacobalberty/firebird:2.5-ss
+    #     environment:
+    #         - ISC_PASSWORD="${FB_PASSWORD}"
+    #     volumes:
+    #         - ./data/fb:/data
+    #     ports:
+    #         - "${FB_PORT}:3050"
+    #     networks:
+    #         - sisten-network
 
     ead_app:
         build:
@@ -59,12 +59,14 @@ services:
         volumes: 
             - ./ead_app/src:/var/www
         ports: 
-            - "${PHP_PORT}:9000"
+            - "${CONTAINER_PORT}:9000"
         networks: 
             - sisten-network
-        environment:
-            - DB_FIREBIRD_HOST=firebird
-            - DB_FIREBIRD_PASSWORD=masterkey
+        depends_on: 
+            - postgres
+        # environment:
+        #     - DB_FIREBIRD_HOST=${FB_FIREBIRD_HOST}
+        #     - DB_FIREBIRD_PASSWORD=${FB_PASSWORD}
 
     npm_app:
         build:
