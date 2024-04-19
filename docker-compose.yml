@@ -74,6 +74,7 @@ services:
         tty: true
         volumes:
             - ./ead_app/src:/app
+            - /app/node_modules
         networks: 
             - sisten-network
         ports:
