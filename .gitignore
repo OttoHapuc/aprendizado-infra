@@ -1,6 +1,6 @@
 
-ead_app/src/*
-ead_api/src/*
+aprendizado_app/src/*
+aprendizado_api/src/*
 
 data/*
 .env

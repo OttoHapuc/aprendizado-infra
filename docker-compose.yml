@@ -13,10 +13,10 @@ services:
         ports: 
             - "${NGINX_PORT}:8000"
         volumes: 
-            - ./ead_app/src:/var/www
+            - ./aprendizado_app/src:/var/www
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on: 
-            - ead_app
+            - aprendizado_app
             - postgres
         networks: 
             - sisten-network
@@ -48,16 +48,16 @@ services:
     #     networks:
     #         - sisten-network
 
-    ead_app:
+    aprendizado_app:
         build:
-            context: ./ead_app/docker/
+            context: ./aprendizado_app/docker/
             dockerfile: Dockerfile
         container_name: "${CONTAINER_APP}"
         restart: unless-stopped
         tty: true
         working_dir: /var/www/
         volumes: 
-            - ./ead_app/src:/var/www
+            - ./aprendizado_app/src:/var/www
         ports: 
             - "${CONTAINER_PORT}:9000"
         networks: 
@@ -70,12 +70,12 @@ services:
 
     npm_app:
         build:
-            context: ./ead_app/src/
+            context: ./aprendizado_app/src/
             dockerfile: npmDockerfile
         restart: unless-stopped
         tty: true
         volumes:
-            - ./ead_app/src:/app
+            - ./aprendizado_app/src:/app
             - /app/node_modules
         networks: 
             - sisten-network
