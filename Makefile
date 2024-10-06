@@ -11,6 +11,7 @@ build:
 	docker compose exec $(CONTAINER_APP) chmod 777 .env storage ./script.sh
 	docker compose exec $(CONTAINER_APP) ./script.sh 
 	docker compose exec $(CONTAINER_APP) php artisan migrate
+	docker compose exec $(CONTAINER_APP) php artisan db:seed
 	docker compose exec $(CONTAINER_APP) php artisan passport:install
 	make stop
 
